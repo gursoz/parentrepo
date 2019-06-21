@@ -1,0 +1,3 @@
+[submodule "bedrock"]
+	path = bedrock
+	url = https://gursoz@github.com/gursoz/bedrock.git
