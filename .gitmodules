@@ -1,3 +1,6 @@
 [submodule "bedrock"]
 	path = bedrock
 	url = https://gursoz@github.com/gursoz/bedrock.git
+[submodule "controlpath"]
+	path = controlpath
+	url = https://github.com/gursoz/controlpath.git
