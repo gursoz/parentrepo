@@ -1,0 +1,52 @@
+rootProject.name = 'pdr'
+include 'bedrock', 'controlpath'
+
+gradle.projectsLoaded { g ->
+    
+  
+  g.rootProject.childProjects.each{ cp -> 
+     println 'project=' + cp.value.name
+     
+     if( cp.value.hasProperty('only') ) {
+
+       def onlyValue = cp.value.findProperty('only')
+       if(onlyValue!=null) {
+         println cp.value.name + ' has property only = ' + onlyValue
+         def values= onlyValue.tokenize(',')
+         values.each{ val ->
+           println 'value=' + val
+           }
+         }
+       } else {
+         println cp.value.name + ' has property only = null'
+       }
+  }
+
+  g.includedBuilds.each{ bld ->
+     println 'included build=' + bld.name
+  }
+}
+
+def boolean isOnlyBuild() {
+  def projectname='bedrock'
+  def result = true
+  if(gradle.rootproject.hasProperty('only')) {
+    result = false
+    def onlyVal = project.findProperty('only') 
+    if(onlyVal!=null) {
+      def values= onlyVal.tokenize(',')
+      values.each{ val ->
+        if(projectname==val) {
+          result = true
+          return;
+        }
+      }
+    }
+  }
+  //if this project does not have the property 'only', the property has not been defined via the CLI.
+  //Therefore, no other roject can have the property 'only'. Threfore, all sub-projects including this one
+  //needs to be considred for build.
+  println 'onlyIf for ' + projectname + ' is evaluated to ' + result
+  return result
+}
+

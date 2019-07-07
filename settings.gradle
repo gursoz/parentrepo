@@ -1,1 +1,3 @@
+rootProject.name = 'pdr'
 include 'bedrock', 'controlpath'
+
